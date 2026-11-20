@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="走進會下雨的漂浮花園。用游標引雨、留下凝露、喚醒霧晶囊，在浮島與雲霧間養出自己的花園。">
+<title>會下雨的漂浮花園</title><link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/garden.css?v=20261120-orbit">
+</head>
+<body>
+<main id="exhibit">
+<canvas id="canvas" data-mode="habitat" tabindex="0" aria-label="漂浮花園互動場景，移動引雨、點擊放置凝露點"></canvas>
+<header><div><h1>會下雨的漂浮花園</h1><p id="status" role="status">霧正慢慢聚起</p></div><div class="header-actions"><button id="help" aria-expanded="false" aria-controls="guide">玩法</button><a href="licenses.html">授權</a></div></header>
+<div class="life-readings"><span><b id="awake">0</b> 甦醒</span><span><b id="count">16</b> 霧晶囊</span><span>凝露 <b id="dew-count">0</b> / 5</span><span>含水 <b id="water">0</b>%</span></div>
+<aside id="guide" hidden><button class="close-guide" onclick="document.getElementById('help').click()" aria-label="關閉玩法">×</button><h2>留下一點雨，花園就會靠近</h2><p>移動游標，讓細雨落在生物身旁。</p><p>點一下，留下一朵凝露。牠們會靠過來，慢慢張開。凝露維持約半分鐘，再逐漸蒸散。</p><p>持續補水，看看有沒有新的小霧晶囊誕生。</p><p>拖曳即可繞花園一整圈，上下拖看天空與浮島底部。滾輪調整遠近。切換「引雨」再點下留凝露，或按住滑鼠右鍵轉動。</p><p>WASD 或方向鍵，引導最亮的一隻霧晶囊。</p><p class="small">空白鍵暫停　R 重新萌生　Esc 收起說明</p></aside>
+<aside id="anatomy" hidden><div class="anatomy-tabs"><button id="whole" aria-pressed="true">全貌</button><button id="membrane" aria-pressed="false">外膜</button><button id="chambers" aria-pressed="false">囊室</button><button id="filaments" aria-pressed="false">細絲</button></div><h2 id="part-title">霧晶囊</h2><p id="part-description"></p></aside>
+<div id="loading"><p id="load-state">雲帶正在甦醒…</p></div>
+<footer>
+<div class="view-controls"><button id="colony" aria-pressed="true">花園</button><button id="single" aria-pressed="false">近看</button><button id="inspect" aria-expanded="false" aria-controls="anatomy" aria-pressed="false">構造</button></div>
+<div class="tools" aria-label="花園操作"><button id="water-mode" aria-pressed="false">引雨 · 點下留凝露</button><button id="orbit-mode" aria-pressed="true">環景</button><button id="rain">整片降雨</button><button id="wind" aria-pressed="false">氣流</button></div>
+<div class="utility"><label>遠近<input id="zoom" aria-label="觀察遠近" type="range" min="65" max="180" value="100"></label><button id="front">回正</button><button id="pause" aria-pressed="false">暫停</button><button id="reset">重新萌生</button></div>
+</footer>
+<p class="hint" id="hint">拖曳 360° 環景 · 切換引雨留下凝露</p>
+</main>
+<noscript>請啟用 JavaScript 進入花園。</noscript>
+<script type="module">
+try {
+ const {default:init}=await import('./assets/mist_garden.js?v=20261120-orbit');
+ await init({module_or_path:new URL('./assets/mist_garden_bg.wasm?v=20261120-orbit',import.meta.url)});
+ const canvas=document.getElementById('canvas');
+ canvas.addEventListener('pointerdown',()=>document.getElementById('hint').classList.add('used'),{once:true});
+} catch(error) {document.getElementById('load-state').textContent='花園暫時無法啟動，請重新整理或使用支援 WebGL2 的瀏覽器。';console.error(error);}
+</script>
+</body></html>
