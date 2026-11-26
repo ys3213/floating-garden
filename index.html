@@ -4,15 +4,60 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="走進會下雨的漂浮花園。用游標引雨、留下凝露、喚醒霧晶囊，在浮島與雲霧間養出自己的花園。">
 <title>會下雨的漂浮花園</title><link rel="icon" href="data:,">
-<link rel="stylesheet" href="assets/garden.css?v=20261120-orbit">
+<link rel="stylesheet" href="assets/garden.css?v=20261126-voices">
 </head>
 <body>
 <main id="exhibit">
 <canvas id="canvas" data-mode="habitat" tabindex="0" aria-label="漂浮花園互動場景，移動引雨、點擊放置凝露點"></canvas>
-<header><div><h1>會下雨的漂浮花園</h1><p id="status" role="status">霧正慢慢聚起</p></div><div class="header-actions"><button id="help" aria-expanded="false" aria-controls="guide">玩法</button><a href="licenses.html">授權</a></div></header>
+<header><div><h1>會下雨的漂浮花園</h1><p id="status" role="status">霧正慢慢聚起</p></div><div class="header-actions"><button id="help" aria-expanded="false" aria-controls="guide">玩法</button><button id="field-guide-toggle" aria-expanded="false" aria-controls="field-guide">生態誌</button><button id="sound-toggle" aria-pressed="false" aria-describedby="sound-status">聽聲</button><a href="licenses.html">授權</a></div></header>
+<span id="sound-status" class="sound-status" role="status"></span>
 <div class="life-readings"><span><b id="awake">0</b> 甦醒</span><span><b id="count">16</b> 霧晶囊</span><span>凝露 <b id="dew-count">0</b> / 5</span><span>含水 <b id="water">0</b>%</span></div>
-<aside id="guide" hidden><button class="close-guide" onclick="document.getElementById('help').click()" aria-label="關閉玩法">×</button><h2>留下一點雨，花園就會靠近</h2><p>移動游標，讓細雨落在生物身旁。</p><p>點一下，留下一朵凝露。牠們會靠過來，慢慢張開。凝露維持約半分鐘，再逐漸蒸散。</p><p>持續補水，看看有沒有新的小霧晶囊誕生。</p><p>拖曳即可繞花園一整圈，上下拖看天空與浮島底部。滾輪調整遠近。切換「引雨」再點下留凝露，或按住滑鼠右鍵轉動。</p><p>WASD 或方向鍵，引導最亮的一隻霧晶囊。</p><p class="small">空白鍵暫停　R 重新萌生　Esc 收起說明</p></aside>
+<aside id="guide" hidden><button class="close-guide" onclick="document.getElementById('help').click()" aria-label="關閉玩法">×</button><h2>留下一點雨，花園就會靠近</h2><p>移動游標，讓細雨落在生物身旁。</p><p>點一下，留下一朵凝露。牠們會靠過來，慢慢張開。凝露維持約半分鐘，再逐漸蒸散。</p><p>持續補水，看看有沒有新的小霧晶囊誕生。</p><p>拖曳即可繞花園一整圈，上下拖看天空與浮島底部。滾輪調整遠近。切換「引雨」再點下留凝露，或按住滑鼠右鍵轉動。</p><p>WASD 或方向鍵，引導最亮的一隻霧晶囊。</p><p>按「聽聲」後再引雨，聽濕褶瓣在展開時輕彈。</p><p class="small">空白鍵暫停　R 重新萌生　Esc 收起說明</p></aside>
 <aside id="anatomy" hidden><div class="anatomy-tabs"><button id="whole" aria-pressed="true">全貌</button><button id="membrane" aria-pressed="false">外膜</button><button id="chambers" aria-pressed="false">囊室</button><button id="filaments" aria-pressed="false">細絲</button></div><h2 id="part-title">霧晶囊</h2><p id="part-description"></p></aside>
+<aside id="field-guide" aria-labelledby="field-guide-title" hidden>
+  <button id="field-guide-close" class="close-guide" aria-label="關閉生態誌">×</button>
+  <h2 id="field-guide-title">霧晶囊生態誌</h2>
+  <p>人類消失五百年後，多姆山的雨把岩縫、薄水膜和低層雲霧連在一起。每一次起霧，花園都可能在另一處重新長出。</p>
+  <div class="field-list">
+    <details open>
+      <summary>凝露簧</summary>
+      <p>凝露拉住兩道褶瓣。水珠滑落時，褶邊回彈，發出短促的振動。較重的濕褶彈得沉，小芽脫落時只有輕輕一下。</p>
+      <p>外膜保水，分岔細絲接霧，三個內部區域分別緩衝水分、儲存可用碳與長芽。凝露簧由導水的褶邊演化而來，排水也能減少外滴的拖拉。</p>
+    </details>
+    <details>
+      <summary>在霧與岩面之間長大</summary>
+      <p>小芽卡在苔槽、岩縫或玻璃刮痕，吸水後展開。水、有機碳與氧氣都足夠時，母體才長出下一顆芽。暴雨會沖走聚落，短暫的乾期有些芽能折起休眠。</p>
+      <p>少數小芽隨微小雨濺進入空氣，被氣流帶到霧裡。合滴和飽水也讓牠們更容易隨雨回到坡面。</p>
+    </details>
+    <details>
+      <summary>濕絲上的回聲</summary>
+      <p>相鄰個體共用水膜時，一隻的褶邊回彈可拉動另一隻的細絲。溶質也會留在小滴裡，累積到一定程度才影響附著。水橋一斷，回聲就停下。</p>
+      <p>個體離開後，吸水膠會在岩面留下濕痕。下一次起霧，濕痕先吸到水，可能讓後來的芽在同一處落腳。</p>
+    </details>
+    <details>
+      <summary>同一種生物，不同的棲位</summary>
+      <p>長絲型擅長在背風的濕縫接住水，長絲也更容易被風拖裂。短褶型常見於乾濕交替的外坡，收得更緊，能搭出的水橋也更少。</p>
+    </details>
+    <details>
+      <summary>花園裡的鄰居</summary>
+      <p>貼在石面上的近緣霧脊囊幾乎沉默。苔槽藻在有光的薄水膜生長，老化的膜和藻體在濕縫中被分解。裂膜食滴蟲在濕處尋找外露的芽，讓密集聚落也有被吃掉的代價。</p>
+    </details>
+  </div>
+  <div class="listen-preview">
+    <h3>近聽花園</h3>
+    <p>聽不同個體的褶瓣怎麼顫動。水分、褶片的厚薄與接觸位置都會改變音色。</p>
+    <label class="clip-selection">片段
+      <select id="garden-clip">
+        <option value="05-garden.wav">整段花園 · 26 秒</option>
+        <option value="01-individuals.wav">三隻個體</option>
+        <option value="02-wet-fold.wav">同一隻從回濕到卸露</option>
+        <option value="03-filament-chain.wav">濕絲接力與斷開</option>
+        <option value="04-buds.wav">兩顆小芽</option>
+      </select>
+    </label>
+    <audio id="garden-preview" controls preload="none" src="./assets/audio/05-garden.wav" aria-label="霧晶囊聲音試聽"></audio>
+  </div>
+</aside>
 <div id="loading"><p id="load-state">雲帶正在甦醒…</p></div>
 <footer>
 <div class="view-controls"><button id="colony" aria-pressed="true">花園</button><button id="single" aria-pressed="false">近看</button><button id="inspect" aria-expanded="false" aria-controls="anatomy" aria-pressed="false">構造</button></div>
@@ -23,10 +68,53 @@
 </main>
 <noscript>請啟用 JavaScript 進入花園。</noscript>
 <script type="module">
+import {connectGardenAudio} from './assets/garden-audio.js?v=20261126-voices';
+
+const canvas = document.getElementById('canvas');
+const guide = document.getElementById('field-guide');
+const guideToggle = document.getElementById('field-guide-toggle');
+const guideClose = document.getElementById('field-guide-close');
+const preview = document.getElementById('garden-preview');
+const audioBase = new URL('./assets/audio/', import.meta.url);
+document.getElementById('garden-clip').addEventListener('change', event => {
+ preview.src = new URL(event.target.value, audioBase);
+});
+
+function toggleGuide(open) {
+ if (open) {
+   for (const id of ['help', 'inspect']) {
+     const button = document.getElementById(id);
+     if (button.getAttribute('aria-expanded') === 'true') button.click();
+   }
+ }
+ guide.hidden = !open;
+ guideToggle.setAttribute('aria-expanded', String(open));
+ if (open) guideClose.focus();
+ else {
+   preview.pause();
+   guideToggle.focus();
+ }
+}
+guideToggle.addEventListener('click', () => toggleGuide(guide.hidden));
+guideClose.addEventListener('click', () => toggleGuide(false));
+guide.addEventListener('keydown', event => {
+ if (event.key !== 'Escape') event.stopPropagation();
+});
+for (const id of ['help', 'inspect']) {
+ document.getElementById(id).addEventListener('click', () => {
+   if (guide.hidden) return;
+   toggleGuide(false);
+   document.getElementById(id).focus();
+ });
+}
+document.addEventListener('keydown', event => {
+ if (event.key === 'Escape' && !guide.hidden) toggleGuide(false);
+});
+
 try {
- const {default:init}=await import('./assets/mist_garden.js?v=20261120-orbit');
- await init({module_or_path:new URL('./assets/mist_garden_bg.wasm?v=20261120-orbit',import.meta.url)});
- const canvas=document.getElementById('canvas');
+ const {default:init}=await import('./assets/mist_garden.js?v=20261126-voices');
+ await init({module_or_path:new URL('./assets/mist_garden_bg.wasm?v=20261126-voices',import.meta.url)});
+ connectGardenAudio(canvas, document.getElementById('sound-toggle'), preview);
  canvas.addEventListener('pointerdown',()=>document.getElementById('hint').classList.add('used'),{once:true});
 } catch(error) {document.getElementById('load-state').textContent='花園暫時無法啟動，請重新整理或使用支援 WebGL2 的瀏覽器。';console.error(error);}
 </script>
